@@ -20,9 +20,24 @@ namespace HashTag
             extractHashTags();
         }
 
-        public string Content { get; set; }
+        public string Content { get; private set; }
 
         public Range Location { get; set; }
+
+        public int Start
+        {
+            get { return Location.Start; }
+        }
+
+        public string HashTagList
+        {
+            get
+            {
+                var strings = HashTags.ToArray();
+                Array.Sort(strings, StringComparer.InvariantCulture);
+                return String.Join(", ", strings);
+            }
+        }
 
         public List<string> HashTags { get; set; }
 
@@ -35,15 +50,6 @@ namespace HashTag
                 HashTags.Add(match.Value);
             }
         }
-
-        public string[] getTableRepresentation()
-        {
-            var result = new string[3];
-            result[0] = Location.Start.ToString();
-            result[1] = Content;
-            result[2] = String.Join(", ", HashTags.ToArray());
-
-            return result;
-        }
+        
     }
 }
