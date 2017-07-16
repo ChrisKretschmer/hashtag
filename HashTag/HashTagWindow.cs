@@ -32,9 +32,10 @@ namespace HashTag
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            var tag = dataGridView1.SelectedRows[0].Cells[0].Value;
             var filter = currentHashTags.Keys.ToArray()[e.RowIndex];
             this.Hide();
-            Globals.ThisDocument.openParagraphWindow(filter);
+            Globals.ThisDocument.openParagraphWindow(tag.ToString());
             
         }
     }
