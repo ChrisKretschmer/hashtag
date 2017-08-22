@@ -80,20 +80,21 @@ namespace HashTag
         {
             var foundHashTags = new List<Quotation>();
             var doc = ThisApplication.ActiveDocument;
-            var paragraphs = doc.Paragraphs;
-
-            for (int i = 0; i < paragraphs.Count; i++)
+            var paragraphCount = doc.Paragraphs.Count;
+            var paragraph = doc.Paragraphs[1];
+            var i = 0;
+            do
             {
-                increaseProgress(paragraphs.Count, i);
-                var currentParagraph = paragraphs[i + 1];
-                string temp = currentParagraph.Range.Text.Trim();
+                increaseProgress(paragraphCount, i);
+                string temp = paragraph.Range.Text.Trim();
                 if (temp != string.Empty)
                 {
-                    var hashTag = new Quotation(temp, currentParagraph.Range);
+                    var hashTag = new Quotation(temp, paragraph.Range);
                     foundHashTags.Add(hashTag);
                 }
-
-            }
+                i++;
+                paragraph = paragraph.Next();
+            } while (paragraph != null);
 
             return foundHashTags;
 
